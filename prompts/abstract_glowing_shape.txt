@@ -1,0 +1,11 @@
+# Abstract Glowing Shape Prompt
+
+## Positive Prompt
+abstract symmetrical sigil, radiant neon blue and molten gold ribbons weaving into a luminous geometric mandala, intricate circuitry details, volumetric light, ethereal glow, high-detail digital illustration, 8k, artstation trending
+
+## Negative Prompt
+low detail, blurry, noisy, monochrome, muted colors, text, watermark, artifacts, grainy, distorted anatomy, asymmetry, cropped
+
+## Notes
+- Pair with a high CFG scale to preserve crisp neon edges.
+- Works well with Euler a or DPM++ 2M Karras samplers at 25-30 steps.

@@ -284,7 +284,7 @@ class PythonLearningEditor:
         self.text.bind("<ButtonRelease>", self._update_helper_panel)
         self.text.bind("<Control-space>", self._show_autocomplete)
         self.text.bind("<Motion>", self._update_status_bar)
-        self.text.bind("<KeyRelease>", self._update_status_bar)
+        self.text.bind("<KeyRelease>", self._update_status_bar, add="+")
         self.text.bind("<<Selection>>", self._update_helper_panel)
         self.text.bind("<F5>", lambda event: self._run_event(self.run_code))
         self.text.bind("<Shift-F5>", lambda event: self._run_event(self.run_selection))
@@ -525,13 +525,20 @@ class PythonLearningEditor:
             self.save_file()
 
     def _confirm_unsaved_changes(self) -> bool:
-        if self.text.edit_modified():
-            answer = messagebox.askyesnocancel("Unsaved changes", "Save the current file before proceeding?")
-            if answer is None:
+        if not self.text.edit_modified():
+            return True
+
+        answer = messagebox.askyesnocancel(
+            "Unsaved changes", "Save the current file before proceeding?"
+        )
+        if answer is None:
+            return False
+        if answer:
+            self.save_file()
+            if self.text.edit_modified():
                 return False
-            if answer:
-                self.save_file()
-        self.text.edit_modified(False)
+        else:
+            self.text.edit_modified(False)
         return True
 
     def _undo(self) -> None:
